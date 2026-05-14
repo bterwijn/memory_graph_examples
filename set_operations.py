@@ -1,46 +1,28 @@
 
-def p(x):
-    print(x)
-
-
-a = {'🍓', '🍌'} | {'🍌', '🍉'}; p(a)
-a = {'🍓', '🍌'} & {'🍌', '🍉'}; p(a)
-a = {'🍓', '🍌'} ^ {'🍌', '🍉'}; p(a)
-a = {'🍓', '🍌'} - {'🍌', '🍉'}; p(a)
-
-print({'🍓', '🍌'} == {'🍌', '🍓'} )
-
-print({'🍓', '🍌'}.issubset({'🍓', '🍌', '🍒'}))
-print({'🍓', '🍌'} <= {'🍓', '🍌', '🍒'})
-
-print({'🍓', '🍌', '🍒'}.issuperset({'🍓'}))
-print({'🍓', '🍌', '🍒'} >= {'🍓'})
-
-print({'🍓', '🍌'}.isdisjoint({'🍉', '🍒'}))
-print(not {'🍓', '🍌'} & {'🍉', '🍒'})
-
-
-a = {'🍓', '🍌', '🍒', '🥥', '🍉', '🍍', '🥝', '🍎', '🍇'}
-
-print()
-
-a =  {'🍓', '🍌'}; p(a)
-a |= {'🍌', '🍉'}; p(a)
-a &= {'🍓', '🍌', '🍒'}; p(a)
-a ^= {'🍓', '🥝'}; p(a)
-a -= {'🍌', '🍇'}; p(a)
-
-print()
-a =  {'🍓', '🍌'}; p(a)
-print(len(a))
-print('🍍' in a)
-a.add('🍍'); p(a)
-a.add('🍍'); p(a)
-print('🍍' in a)
-a.discard('🍍'); p(a)
-a.discard('🥥'); p(a)
+a = {'🍓','🍌'}         # a: {'🍓','🍌'}
+print(len(a))           # 2
+print('🥝' in a)        # False, complexity O(1)
+a.add('🥝')             # a: {'🍓','🍌','🥝'}
+a.add('🥝')             # a: {'🍓','🍌','🥝'}
+print('🥝' in a)        # True, complexity O(1)
+a.discard('🍌')         # a: {'🍓','🥝'}
+a.discard('🍌')         # a: {'🍓','🥝'}
 try:
-    a.remove('🥥'); p(a)
+    a.remove('🍌')      # a: {'🍓','🥝'}
 except KeyError:
-    print("not found")
-a.clear(); p(a)
+    print("not found")  # not found
+a.clear()               # a: set()
+
+a = {'🍓','🍓'} | {'🍓','🍓'};  # a: {'🍓'}
+a = {'🍓','🍌'} | {'🍌','🍉'};  # a: {'🍓','🍌','🍉'}
+a = {'🍓','🍌'} & {'🍌','🍉'};  # a: {'🍌'}
+a = {'🍓','🍌'} ^ {'🍌','🍉'};  # a: {'🍓','🍉'}
+a = {'🍓','🍌'} - {'🍌','🍉'};  # a: {'🍓'}
+
+print({'🍓','🍌'} == {'🍌','🍓'})          # True
+print({'🍓'}.issubset({'🍓','🍌'}))        # True
+print({'🍓'} <=       {'🍓','🍌'})         # True
+print({'🍓','🍌'}.issuperset({'🍓'}))      # True
+print({'🍓','🍌'} >=         {'🍓'})       # True
+print(    {'🍓','🍌'}.isdisjoint({'🍒'}))  # True
+print(not {'🍓','🍌'} &          {'🍒'})   # True
