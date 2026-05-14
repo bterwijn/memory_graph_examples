@@ -26,3 +26,6 @@ print({'🍓','🍌'}.issuperset({'🍓'}))      # True
 print({'🍓','🍌'} >=         {'🍓'})       # True
 print(    {'🍓','🍌'}.isdisjoint({'🍒'}))  # True
 print(not {'🍓','🍌'} &          {'🍒'})   # True
+
+
+
