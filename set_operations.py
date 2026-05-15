@@ -40,3 +40,11 @@ a -= {'🍒','🍌'}       # a: {'🍓','🥝'}
 print(a is b)          # True, same identity
 a = a | {'🥝','🍒'}    # a: {'🍓','🥝','🍒'}
 print(a is b)          # False, different identity
+
+mylist = ['🍓','🍓','🥝','🍒','🍒']  # duplicates
+a = set(mylist)        # a: {'🍓','🥝','🍒'}
+a.add(1)               # a: {'🍓','🥝','🍒', 1}
+try:
+    a.add([2])         # a: {'🍓','🥝','🍒', 1}
+except TypeError as e:
+    print(e)           # unhashable type: 'list' 
