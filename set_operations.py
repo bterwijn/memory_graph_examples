@@ -11,7 +11,7 @@ a.discard('🍌')         # a: {'🍓','🥝'}
 a.discard('🍌')         # a: {'🍓','🥝'}
 try:
     a.remove('🍌')      # a: {'🍓','🥝'}
-except KeyError:
+except KeyError as e:
     print("not found")  # not found
 a.clear()               # a: set()
 
