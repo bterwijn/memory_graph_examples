@@ -61,7 +61,7 @@ try:
 except TypeError as e:
     print(e)                 # 'set' object is not subscriptable
 
-for i in enumerate(a):
+for i in enumerate(a):       # order is arbitrary
     print(i)                 
 
 a = {'🍓','🍓'}.union(               {'🍓','🍓'})  # a: {'🍓'}
