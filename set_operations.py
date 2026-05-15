@@ -1,3 +1,5 @@
+# show sets horizontally
+mg.config.type_to_horizontal[set] = True
 
 a = {'🍓','🍌'}         # a: {'🍓','🍌'}
 print(len(a))           # 2
@@ -27,5 +29,10 @@ print({'🍓','🍌'} >=         {'🍓'})       # True
 print(    {'🍓','🍌'}.isdisjoint({'🍒'}))  # True
 print(not {'🍓','🍌'} &          {'🍒'})   # True
 
-
-
+a = {'🍓','🍌'}        # a: {'🍓','🍌'}
+b = a                  # b: {'🍓','🍌'}
+c = a.copy()           # c: {'🍓','🍌'}
+a |= {'🍌','🍉'}       # a: {'🍓','🍌','🍉'}
+a &= {'🍓','🍉'}       # a: {'🍓','🍉'}
+a ^= {'🍉','🥝','🍒'}  # a: {'🍓','🥝','🍒'}
+a -= {'🍒','🍌'}       # a: {'🍓','🥝'}
