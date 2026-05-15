@@ -42,26 +42,26 @@ a = a | {'🥝','🍉'}    # a: {'🍓','🥝','🍉'}
 print(a is b)          # False, different identity
 
 mylist = ['🍓','🍓','🍒','🥝','🍒']  # duplicates
-a = set(mylist)        # a: {'🍓','🥝','🍒'}
-a.add('🍌')            # a: {'🍓','🥝','🍒','🍌'}
+a = set(mylist)         # a: {'🍓','🥝','🍒'}
+a.add('🍌')             # a: {'🍓','🥝','🍒','🍌'}
 try:
-    a.add({'🍌'})      # a: {'🍓','🥝','🍒','🍌'}
+    a.add({'🍌','🍉'})  # a: {'🍓','🥝','🍒','🍌'}
 except TypeError as e:
-    print(e)           # unhashable type: 'set'
+    print(e)            # unhashable type: 'set'
 
-f = frozenset({'🍌'})        # f: frozenset({'🍌'})
+f = frozenset({'🍌','🍉'})   # f: frozenset({'🍌','🍉'})
 try:
-    f.add('🍉')              # f: frozenset({'🍌'})
+    f.add('🍓')              # f: frozenset({'🍌','🍉'})
 except AttributeError as e:
     print(e)                 # 'frozenset' object has no attribute 'add'
-a.add(f)                     # a: {'🍓','🥝','🍒','🍌',frozenset({'🍌'})}
+a.add(f)                     # a: {'🍓','🥝','🍒','🍌',frozenset({'🍌','🍉'})}
 
 try:
     print(a[0])
 except TypeError as e:
-    print(e)                 # 'set' object is not subscriptable
+    print(e)            # 'set' object is not subscriptable
 
-for i in enumerate(a):       # order is arbitrary
+for i in enumerate(a):  # order is arbitrary
     print(i)                 
 
 a = {'🍓','🍓'}.union(               {'🍓','🍓'})  # a: {'🍓'}
