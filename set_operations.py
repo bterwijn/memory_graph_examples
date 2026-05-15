@@ -15,11 +15,11 @@ except KeyError as e:
     print("not found")  # not found
 a.clear()               # a: set()
 
-a = {'🍓','🍓'} | {'🍓','🍓'};  # a: {'🍓'}
-a = {'🍓','🍌'} | {'🍌','🍉'};  # a: {'🍓','🍌','🍉'}
-a = {'🍓','🍌'} & {'🍌','🍉'};  # a: {'🍌'}
-a = {'🍓','🍌'} ^ {'🍌','🍉'};  # a: {'🍓','🍉'}
-a = {'🍓','🍌'} - {'🍌','🍉'};  # a: {'🍓'}
+a = {'🍓','🍓'} | {'🍓','🍓'}  # a: {'🍓'}
+a = {'🍓','🍌'} | {'🍌','🍉'}  # a: {'🍓','🍌','🍉'}
+a = {'🍓','🍌'} & {'🍌','🍉'}  # a: {'🍌'}
+a = {'🍓','🍌'} ^ {'🍌','🍉'}  # a: {'🍓','🍉'}
+a = {'🍓','🍌'} - {'🍌','🍉'}  # a: {'🍓'}
 
 print({'🍓','🍌'} == {'🍌','🍌','🍓'})     # True
 print({'🍓'}.issubset({'🍓','🍌'}))        # True
@@ -43,8 +43,29 @@ print(a is b)          # False, different identity
 
 mylist = ['🍓','🍓','🥝','🍒','🍒']  # duplicates
 a = set(mylist)        # a: {'🍓','🥝','🍒'}
-a.add(1)               # a: {'🍓','🥝','🍒', 1}
+a.add('🍌')            # a: {'🍓','🥝','🍒','🍌'}
 try:
-    a.add([2])         # a: {'🍓','🥝','🍒', 1}
+    a.add({'🍌'})      # a: {'🍓','🥝','🍒','🍌'}
 except TypeError as e:
-    print(e)           # unhashable type: 'list' 
+    print(e)           # unhashable type: 'set'
+
+f = frozenset({'🍌'})        # f: frozenset({'🍌'})
+try:
+    f.add('🍉')              # f: frozenset({'🍌'})
+except AttributeError as e:
+    print(e)                 # 'frozenset' object has no attribute 'add'
+a.add(f)                     # a: {'🍓','🥝','🍒','🍌',frozenset({'🍌'})}
+
+try:
+    print(a[0])
+except TypeError as e:
+    print(e)                 # 'set' object is not subscriptable
+
+for i in enumerate(a):
+    print(i)                 
+
+a = {'🍓','🍓'}.union(               {'🍓','🍓'})  # a: {'🍓'}
+a = {'🍓','🍌'}.union(               {'🍌','🍉'})  # a: {'🍓','🍌','🍉'}
+a = {'🍓','🍌'}.intersection(        {'🍌','🍉'})  # a: {'🍌'}
+a = {'🍓','🍌'}.symmetric_difference({'🍌','🍉'})  # a: {'🍓','🍉'}
+a = {'🍓','🍌'}.difference(          {'🍌','🍉'})  # a: {'🍓'}
