@@ -36,3 +36,6 @@ a |= {'🍌','🍉'}       # a: {'🍓','🍌','🍉'}
 a &= {'🍓','🍉'}       # a: {'🍓','🍉'}
 a ^= {'🍉','🥝','🍒'}  # a: {'🍓','🥝','🍒'}
 a -= {'🍒','🍌'}       # a: {'🍓','🥝'}
+print(a is b)          # True, same identity
+a = a | {'🥝','🍒'}    # a: {'🍓','🥝''🍒'}
+print(a is b)          # False, different identity
