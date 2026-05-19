@@ -9,3 +9,6 @@ print(a.count('🌻'))
 print(a.index('🌻'))
 a.pop()
 a.pop(1)
+
+
+test = ['🐁🐊🐎🐐🐙🐓🐜🐝🐞🐛🐖🐦🐧🐫🐘🐠🐄🐑🐬🐕🐈']
