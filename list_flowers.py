@@ -1,0 +1,11 @@
+test = ['🌹','🪻','🌼','🌻','🪷','🌷','🌸','🏵️','💐','🥀','🌺']
+
+a = ['🌹','🪻']
+a.append('🌼')
+a.remove('🪻')
+a.extend(['🌻','🪷'])
+print('🌻' in a)
+print(a.count('🌻'))
+print(a.index('🌻'))
+a.pop()
+a.pop(1)
