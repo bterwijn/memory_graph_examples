@@ -5,20 +5,18 @@ a.append('🌼')
 a.remove('🪻')
 a.extend(['🌻','🪷'])
 a.insert(2, '🍀')
-
 i = a.pop()
 i = a.pop(0)
+print('🌻' in a)
+print(a.count('🌻'))
+print(a.index('🌻'))
+print(a[1:-1])
 a += ['🪻', '🌹']
 a = a[1:-1]
 
 a.append(['🌹','🌸'])
 a.append(a)
 
-print('🌻' in a)
-print(a.count('🌻'))
-print(a.index('🌻'))
-a.pop()
-a.pop(1)
 
 
 test2 = ['🐁','🐊','🐎','🐐','🐙','🐓','🐜','🐝','🐞','🐛','🐖','🐦','🐧','🐫','🐘','🐠','🐄','🐑','🐬','🐕','🐈','🐤','🪲','🦩','🦞','🦨','🦜','🦋','🦆','🦍','🦀','🦅']
