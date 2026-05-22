@@ -1,5 +1,8 @@
 import copy   
 
+# show lists horizontally
+mg.config.type_to_horizontal[list] = True
+
 a = ['🌹','🪻']        # a: ['🌹','🪻']
 a.append('🌼')         # a: ['🌹','🪻','🌼']
 a.append('🌼')         # a: ['🌹','🪻','🌼','🌼']
