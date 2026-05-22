@@ -4,7 +4,7 @@ a = ['🌹','🪻']        # a: ['🌹','🪻']
 a.append('🌼')         # a: ['🌹','🪻','🌼']
 a.append('🌼')         # a: ['🌹','🪻','🌼','🌼']
 print(len(a))          # 4
-print('🌼' in a)       # True
+print('🌼' in a)       # True, complexity O(n)
 print(a.count('🌼'))   # 2
 print(a.index('🌹'))   # 0
 a.remove('🌼')         # a: ['🌹','🪻','🌼']
