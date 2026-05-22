@@ -29,6 +29,7 @@ a = [['🌹','🪷'], ['🌻','🪻']]    # a: [['🌹','🪷'], ['🌻','🪻']
 c1 = a
 c2 = a.copy()
 c3 = copy.deepcopy(a)
+print(a == c1, a == c2, a == c3)  # True True True
 a[0][0] = '🌼'                    # a: [['🌼','🪷'], ['🌻','🪻']]
 print(a == c1, a == c2, a == c3)  # True True False
 a.reverse()                       # a: [['🌻','🪻'], ['🌼','🪷']]
