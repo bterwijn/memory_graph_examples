@@ -8,7 +8,7 @@ def write_file(filename, N):
 def read_file(filename):
     with open(filename) as file:
         for line in file:
-            yield line  # using lazy evaluation
+            yield line.strip()  # using lazy evaluation
 
 # create test file          
 write_file('test.txt', N)
