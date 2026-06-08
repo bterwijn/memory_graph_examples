@@ -17,6 +17,28 @@ n = {1: '⓵', 2: '⓶', 3: '⓷', 4: '⓸', 5: '⓹', 6: '⓺'}
 o = {1: 'ⓐ', 2: 'ⓑ', 3: 'ⓒ', 4: 'ⓓ', 5: 'ⓔ', 6: 'ⓕ'}
 
 
+# len []= del
+# in,[] get(key, default), setdefault(key, []).append(1)
+
+d = {'a':1, 'b':2}              # {'a': 1}
+d.update(a=10, b=20)            # {'a': 10}
+d.update({'a':11, 'b':22})        # {'a': 20}
+d.update([('b',200), ('a',100)])      #
+d.update({'a':1}, a=111)          #
+d |= {'a':1000}
+d2 = d | {'a':1000}
+
+a = dict.fromkeys([1,2,3], 100)
+
+# keys(), values(), items()
+# pop(key), k,v = popitem()
+
+# copy, deepcopy, clear
+
+# d == d, d != d
+
+
+
 b = a
 c = a.copy()
 print(a)               # {1: '🂱', 2: '🂲', 3: '🂳', 4: '🂴'}
