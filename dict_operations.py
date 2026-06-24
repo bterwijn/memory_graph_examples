@@ -43,6 +43,18 @@ love = '😍'
 a = dict(smile=smile, love=love)
 print(a)                        # {'smile': '😀', 'love': '😍'}
 
+value = a.get('smile')
+print(value)                    # 😀
+value = a.get('sad', 'not found')
+print(value)                    # not found
+
+emos = ['😀', '😍', '😟', '😟', '😍']
+indices = {}
+for i, s in enumerate(emos):
+    ind = indices.setdefault(s, [])
+    ind.append(i)
+print(indices)                  # {'😀': [0], '😍': [1, 4], '😟': [2, 3]}
+
 import copy
 a = {i: [] for i in range(2)}
 print(a)                        # {0: [], 1: []}
