@@ -61,8 +61,8 @@ c1 = a
 c2 = a.copy()
 c3 = copy.deepcopy(a)
 a[2] = []
-print(c1)                       # {0: [], 1: [], 2: []}
 a[1].append('☝️')
+print(c1)                       # {0: [], 1: ['☝️'], 2: []}
 print(c2)                       # {0: [], 1: ['☝️']}
 print(c3)                       # {0: [], 1: []}
 
