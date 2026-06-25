@@ -50,8 +50,8 @@ print(value)                    # not found
 
 emos = ['😀', '😍', '😟', '😟', '😍']
 indices = {}
-for i, s in enumerate(emos):
-    indices.setdefault(s, []).append(i)
+for i, emo in enumerate(emos):
+    indices.setdefault(emo, []).append(i)
 print(indices)                  # {'😀': [0], '😍': [1, 4], '😟': [2, 3]}
 
 import copy
