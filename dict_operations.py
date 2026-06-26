@@ -53,6 +53,10 @@ indices = {}
 for i, emo in enumerate(emos):
     indices.setdefault(emo, []).append(i)
 print(indices)                  # {'😀': [0], '😍': [1, 4], '😟': [2, 3]}
+for emo, idx in indices.items():
+    print(f'{emo}: {idx}')      # 😀: [0]
+                                # 😍: [1, 4]
+                                # 😟: [2, 3]
 
 import copy
 a = {i: [] for i in range(2)}
