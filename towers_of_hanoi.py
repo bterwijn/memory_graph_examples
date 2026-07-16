@@ -1,18 +1,10 @@
-ivt_tree.hide_calls.add('print_state')
-ivt_tree.hide_calls.add('move_disk')
-
-def print_state(towers):
-    print(f"A:{towers['A']}    B:{towers['B']}    C:{towers['C']}")
-
-def move_disk(towers, source: str, target: str):
-    disk = towers[source].pop()
-    print(f'move {disk} from {source} to {target}')
-    towers[target].append(disk)
 
 def move(towers, n, source, target, auxiliary):
     if n == 1:
-        move_disk(towers, source, target)
-        print_state(towers)
+        disk = towers[source].pop()
+        towers[target].append(disk)
+        print(f'move {disk} from {source} to {target}')
+        print(towers)
         return
     if n % 2 == 1:
         move(towers, n-1, source, auxiliary, target)
@@ -32,9 +24,9 @@ def towers_of_hanoi(n: int):
         "C": [],
     }    
     print("Initial state:")
-    print_state(towers)
+    print(towers)
     print()
     move(towers, n, "A", "C", "B")  # start recursion
 
 # Example
-towers_of_hanoi(3)
+towers_of_hanoi(4)
