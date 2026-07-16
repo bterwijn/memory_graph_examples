@@ -1,42 +1,40 @@
-
 ivt_tree.hide_calls.add('print_state')
+ivt_tree.hide_calls.add('move_disk')
 
-def towers_of_hanoi_with_state(n: int) -> None:
+def print_state(towers):
+    print(f"A:{towers['A']}    B:{towers['B']}    C:{towers['C']}")
+
+def move_disk(towers, source: str, target: str):
+    disk = towers[source].pop()
+    print(f'move {disk} from {source} to {target}')
+    towers[target].append(disk)
+
+def move(towers, n, source, target, auxiliary):
+    if n == 1:
+        move_disk(towers, source, target)
+        print_state(towers)
+        return
+    if n % 2 == 1:
+        move(towers, n-1, source, auxiliary, target)
+        move(towers, 1,   source, target, auxiliary)
+        move(towers, n-1, auxiliary, target, source)
+    else:
+        move(towers, n-1, source, auxiliary, target)
+        move(towers, 1,   source, target, auxiliary)
+        move(towers, n-1, auxiliary, target, source)
+    
+def towers_of_hanoi(n: int):
     if n <= 0:
         raise ValueError("n must be a positive integer")
-
     towers = {
         "A": list(range(n, 0, -1)),
         "B": [],
         "C": [],
-    }
-
-    def print_state() -> None:
-        print(f"A: {towers['A']}    B: {towers['B']}    C: {towers['C']}")
-
-    def move(num_disks: int, source: str, target: str, auxiliary: str) -> None:
-        if num_disks == 1:
-            disk = towers[source].pop()
-            towers[target].append(disk)
-            print(f"Move disk {disk} from {source} to {target}")
-            print_state()
-            return
-
-        move(num_disks - 1, source, auxiliary, target)
-
-        disk = towers[source].pop()
-        towers[target].append(disk)
-        print(f"Move disk {disk} from {source} to {target}")
-        print_state()
-
-        move(num_disks - 1, auxiliary, target, source)
-
+    }    
     print("Initial state:")
-    print_state()
+    print_state(towers)
     print()
-
-    move(n, "A", "C", "B")
-
+    move(towers, n, "A", "C", "B")  # start recursion
 
 # Example
-towers_of_hanoi_with_state(4)
+towers_of_hanoi(3)
