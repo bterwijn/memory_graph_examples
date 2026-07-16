@@ -5,11 +5,6 @@ def move(towers, n, source, target, auxiliary):
         towers[target].append(disk)
         print(f'move {disk} from {source} to {target}')
         print(towers)
-        return
-    if n % 2 == 1:
-        move(towers, n-1, source, auxiliary, target)
-        move(towers, 1,   source, target, auxiliary)
-        move(towers, n-1, auxiliary, target, source)
     else:
         move(towers, n-1, source, auxiliary, target)
         move(towers, 1,   source, target, auxiliary)
