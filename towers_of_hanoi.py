@@ -10,7 +10,7 @@ def move(towers, n, source, target, auxiliary):
         move(towers, 1,   source, target, auxiliary)
         move(towers, n-1, auxiliary, target, source)
     
-def towers_of_hanoi(n: int):
+def tower_of_hanoi(n: int):
     if n <= 0:
         raise ValueError("n must be a positive integer")
     towers = {
@@ -24,4 +24,4 @@ def towers_of_hanoi(n: int):
     move(towers, n, "A", "C", "B")  # start recursion
 
 # Example
-towers_of_hanoi(4)
+tower_of_hanoi(4)
