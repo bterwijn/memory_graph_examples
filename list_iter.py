@@ -55,7 +55,7 @@ class Linked_List:
             self.tail.next.prev = self.tail
             self.tail = new_node
 
-print("build a linked list")
+print("build a linked list:")
 linked_list = Linked_List()
 for value in range(5):
     print('insert:', value)
@@ -66,10 +66,10 @@ for value in linked_list:
     print(value)
 
 print("what the for-loop does under the hood:")
-myiter = iter(linked_list)  # get iterator
+iterator = iter(linked_list)  # get iterator
 try:
     while True:
-        value = next(myiter)  # get next value
+        value = next(iterator)  # get next value
         print(value)
 except StopIteration:  # signals end of iteration
     pass  # iteration finished
