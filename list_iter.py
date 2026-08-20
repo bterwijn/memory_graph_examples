@@ -8,10 +8,10 @@ class Node:
 class Iterator:
     def __init__(self, node):
         self.current = node
-
+        
     def __iter__(self):
         return self
-
+    
     def __next__(self):
         if self.current is None:
             raise StopIteration
@@ -23,12 +23,14 @@ class Iterator:
 class Iterator_Forward(Iterator):
     def __init__(self, node):
         super().__init__(node)
+        
     def step(self):
         self.current = self.current.next
 
 class Iterator_Backward(Iterator):
     def __init__(self, node):
         super().__init__(node)
+        
     def step(self):
         self.current = self.current.prev
 
@@ -40,7 +42,7 @@ class Linked_List:
     def __iter__(self):
         return Iterator_Forward(self.head)
 
-    def backward_iter(self):
+    def __reversed__(self):
         return Iterator_Backward(self.tail)
 
     def insert_tail(self, data):
@@ -53,21 +55,27 @@ class Linked_List:
             self.tail.next.prev = self.tail
             self.tail = new_node
 
-# build a linked list
+print("build a linked list")
 linked_list = Linked_List()
-for i in range(5):
-    linked_list.insert_tail(i)
+for value in range(5):
+    print('insert:', value)
+    linked_list.insert_tail(value)
 
-# forward iterate through the list and print values
+print("forward iterate through the list:")
 for value in linked_list:
     print(value)
 
-# backward iterate through the list and print values
-# - this is what the for-loop does under the hood:
-iter = linked_list.backward_iter()
+print("what the for-loop does under the hood:")
+myiter = iter(linked_list)  # get iterator
 try:
     while True:
-        value = next(iter)
+        value = next(myiter)  # get next value
         print(value)
-except StopIteration:
-    pass # iteration finished
+except StopIteration:  # signals end of iteration
+    pass  # iteration finished
+
+print("backward iterate through the list:")
+for value in reversed(linked_list):
+    print(value)
+
+print('done')
