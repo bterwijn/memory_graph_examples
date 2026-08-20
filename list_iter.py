@@ -67,12 +67,12 @@ for value in linked_list:
 
 print("what the for-loop does under the hood:")
 iterator = iter(linked_list)  # get iterator
-try:
-    while True:
+while True:
+    try:
         value = next(iterator)  # get next value
         print(value)
-except StopIteration:  # signals end of iteration
-    pass  # iteration finished
+    except StopIteration:  # signals end of iteration
+        break  # iteration finished
 
 print("backward iterate through the list:")
 for value in reversed(linked_list):
