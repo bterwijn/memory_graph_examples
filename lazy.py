@@ -1,27 +1,27 @@
 
-# helper function to print when a value is created 
-create = lambda i : print('create:', i) or i
+# helper function to print and return a value
+pr = lambda s, i : print(s, i) or i
 
 def source1(N):  # eager`evalution`
     result = []
     for i in range(N):
-        result.append(create(i))
+        result.append(pr('create1:', i))
     return result
 
 def source2(N):  # lazy evaluation
     for i in range(N):
-        yield create(i)
+        yield pr('create2:', i)
 
 def source3(N):  # eager: list comprehension
-    return [create(i) for i in range(N) ]
+    return [pr('create3:', i) for i in range(N) ]
 
 def source4(N):  # lazy: generator expression
-    return (create(i) for i in range(N) )
+    return (pr('create4:', i) for i in range(N) )
 
 def sink(source):
     print('-----------------', source.__name__)
     for i in source(3):
-        print('consume:', i)
+        pr('consume:', i)
 
 sink(source1)
 sink(source2)
