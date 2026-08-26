@@ -4,18 +4,18 @@ pr = lambda s, i : print(s, i) or i
 def source1(n):  # eager evalution
     result = []
     for i in range(n):
-        result.append(pr('create1:', i))
+        result.append(pr('produce1:', i))
     return result
 
 def source2(n):  # lazy evaluation
     for i in range(n):
-        yield pr('create2:', i)  # yield instead of return
+        yield pr('produce2:', i)  # yield instead of return
 
 def source3(n):  # eager: list comprehension
-    return [pr('create3:', i) for i in range(n)]
+    return [pr('produce3:', i) for i in range(n)]
 
 def source4(n):  # lazy: generator expression
-    return (pr('create4:', i) for i in range(n))  # () instead of []
+    return (pr('produce4:', i) for i in range(n))  # () instead of []
 
 class MyIterator:
     def __init__(self, current, iterable):
@@ -26,7 +26,7 @@ class MyIterator:
     def __next__(self):
         if self.current >= len(self.iterable):
             raise StopIteration
-        value = pr('create5:', self.current)
+        value = pr('produce5:', self.current)
         self.current += 1
         return value
 
@@ -40,7 +40,7 @@ class Source5:  # lazy: iterable class
 
 
 def sink(source):
-    print('-----------------', source.__name__)
+    print('----- consuming:', source.__name__)
     for i in source(3):
         pr('consume:', i)
 
@@ -49,3 +49,13 @@ sink(source2)
 sink(source3)
 sink(source4)
 sink(Source5)
+
+print('what the for-loop does under the hood:')
+iterator = iter(source2(3))
+try:
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))
+    print(next(iterator))  # raises StopIteration to signal end
+except StopIteration as e:
+    print('done')
