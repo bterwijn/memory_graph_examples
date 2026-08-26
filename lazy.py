@@ -24,7 +24,7 @@ class MyIterator:
     def __iter__(self):
         return self
     def __next__(self):
-        if self.current >= self.iterable.n:
+        if self.current >= len(self.iterable):
             raise StopIteration
         value = pr('create5:', self.current)
         self.current += 1
@@ -33,6 +33,8 @@ class MyIterator:
 class Source5:  # lazy: iterable class
     def __init__(self, n):
         self.n = n
+    def __len__(self):
+        return self.n
     def __iter__(self):
         return MyIterator(0, self)
 
@@ -46,4 +48,3 @@ sink(source2)
 sink(source3)
 sink(source4)
 sink(Source5)
-
