@@ -50,12 +50,11 @@ sink(source3)
 sink(source4)
 sink(Source5)
 
-print('what the for-loop does under the hood:')
-iterator = iter(source2(3))
-try:
-    print(next(iterator))
-    print(next(iterator))
-    print(next(iterator))
-    print(next(iterator))  # raises StopIteration to signal end
-except StopIteration as e:
-    print('done')
+print("what the for-loop does under the hood:")
+iterator = iter(source2(3))  # get iterator
+while True:
+    try:
+        value = next(iterator)  # get next value
+        print(value)
+    except StopIteration:  # signals end of iteration
+        break  # iteration finished
