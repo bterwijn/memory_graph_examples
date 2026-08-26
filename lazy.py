@@ -9,13 +9,13 @@ def source1(n):  # eager evalution
 
 def source2(n):  # lazy evaluation
     for i in range(n):
-        yield pr('create2:', i)
+        yield pr('create2:', i)  # yield instead of return
 
 def source3(n):  # eager: list comprehension
-    return [pr('create3:', i) for i in range(n) ]
+    return [pr('create3:', i) for i in range(n)]
 
 def source4(n):  # lazy: generator expression
-    return (pr('create4:', i) for i in range(n) )
+    return (pr('create4:', i) for i in range(n))  # () instead of []
 
 class MyIterator:
     def __init__(self, current, iterable):
@@ -37,6 +37,7 @@ class Source5:  # lazy: iterable class
         return self.n
     def __iter__(self):
         return MyIterator(0, self)
+
 
 def sink(source):
     print('-----------------', source.__name__)
