@@ -1,7 +1,7 @@
 # helper function to print and return a value
 pr = lambda s, i : print(s, i) or i
 
-def source1(n):  # eager`evalution`
+def source1(n):  # eager evalution
     result = []
     for i in range(n):
         result.append(pr('create1:', i))
