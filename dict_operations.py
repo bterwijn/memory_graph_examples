@@ -24,33 +24,8 @@ print(a.keys())                 # dict_keys([1, 4, 5])
 print(a.values())               # dict_values(['☝️', '🍀', '🌸'])
 print(a.items())                # dict_items([(1, '☝️'), (4, '🍀'), (5, '🌸')])
 
-<<<<<<< HEAD
-# len []= del
-# in,[] get(key, default), setdefault(key, []).append(1)
-
-d = {'a':1, 'b':2}              # {'a': 1}
-d.update(a=10, b=20)            # {'a': 10}
-d.update({'a':11, 'b':22})        # {'a': 20}
-d.update([('b',200), ('a',100)])      #
-d.update({'a':1}, a=111)          #
-d |= {'a':1000}
-d2 = d | {'a':1000}
-
-a = dict.fromkeys([1,2,3], 100)
-
-# keys(), values(), items()
-# pop(key), k,v = popitem()
-
-# copy, deepcopy, clear
-
-# d == d, d != d
-
-
-
-=======
 a.update({2: '②', 3: '③'})
 print(a)                        # {1: '☝️', 4: '🍀', 5: '🌸', 2: '②', 3: '③'}
->>>>>>> 95e3c385c9bb9c77905cb78168ae08a8d732a9f8
 b = a
 a |= {2: 'Ⅱ', 3: 'Ⅲ'}
 print(b)                        # {1: '☝️', 4: '🍀', 5: '🌸', 2: 'Ⅱ', 3: 'Ⅲ'}
