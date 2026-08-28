@@ -30,7 +30,7 @@ class MyIterator:
         self.current += 1
         return value
 
-class Source5:  # lazy: iterable class
+class Source5:  # lazy: iterator protocol
     def __init__(self, n):
         self.n = n
     def __len__(self):
