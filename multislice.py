@@ -75,7 +75,8 @@ class Linked_List:
             i = slice_or_int
             iterator = iter(self) if i >= 0 else reversed(self)
             v = None
-            for _ in range(abs(i)):
+            steps = i + 1 if i >= 0 else abs(i)
+            for _ in range(steps):
                 v = next(iterator)
             return v
         
