@@ -1,4 +1,4 @@
-# helper function to print and return a value
+# helper function that prints and returns a value
 pr = lambda s, i : print(s, i) or i
 
 def source1(n):  # eager evalution
