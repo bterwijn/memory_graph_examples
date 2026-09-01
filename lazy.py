@@ -1,4 +1,4 @@
-# helper function to print and return a value
+# helper function that prints and returns a value
 pr = lambda s, i : print(s, i) or i
 
 def source1(n):  # eager evalution
@@ -30,7 +30,7 @@ class MyIterator:
         self.current += 1
         return value
 
-class Source5:  # lazy: iterable class
+class Source5:  # lazy: iterator protocol
     def __init__(self, n):
         self.n = n
     def __len__(self):
@@ -50,12 +50,11 @@ sink(source3)
 sink(source4)
 sink(Source5)
 
-print('what the for-loop does under the hood:')
-iterator = iter(source2(3))
-try:
-    print(next(iterator))
-    print(next(iterator))
-    print(next(iterator))
-    print(next(iterator))  # raises StopIteration to signal end
-except StopIteration as e:
-    print('done')
+print("what the for-loop does under the hood:")
+iterator = iter(source2(3))  # get iterator
+while True:
+    try:
+        value = next(iterator)  # get next value
+        print(value)
+    except StopIteration:  # signals end of iteration
+        break  # iteration finished
