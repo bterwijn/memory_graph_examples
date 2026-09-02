@@ -27,12 +27,8 @@ class Node:
             self.larger.inorder()
 
     def postorder(self):
-        smaller = []
-        if self.smaller:
-            smaller = self.smaller.postorder()
-        larger = []
-        if self.larger:
-            larger = self.larger.postorder()
+        smaller = self.smaller.postorder() if self.smaller else []
+        larger = self.larger.postorder() if self.larger else []
         largest = smaller if len(smaller) > len(larger) else larger
         return [self.value] + largest
 
