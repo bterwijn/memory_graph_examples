@@ -68,11 +68,11 @@ class BinTree:
         print(self.root.postorder())
 
 n = 8
-data = list(string.ascii_lowercase[:n])
-random.shuffle(data)
-print('build binary tree with elements: ', data)
+values = list(string.ascii_lowercase[:n])
+random.shuffle(values)
+print('build binary tree with values: ', values)
 bintree = BinTree()
-for i in data:
+for i in values:
     print(' insert:', i)
     bintree.insert(i)
 
