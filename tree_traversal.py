@@ -1,5 +1,5 @@
 import random
-random.seed(0)
+import string
 
 class Node:
     def __init__(self, value):
@@ -19,19 +19,6 @@ class Node:
             else:
                 self.larger = Node(value)
 
-    def inorder(self):
-        if self.smaller:
-            self.smaller.inorder()
-        print(self.value, end=' ')
-        if self.larger:
-            self.larger.inorder()
-
-    def postorder(self):
-        smaller = self.smaller.postorder() if self.smaller else []
-        larger = self.larger.postorder() if self.larger else []
-        largest = smaller if len(smaller) > len(larger) else larger
-        return [self.value] + largest
-
     def preorder(self, prepend=None, indent=0, remove=-1):
         if remove >= 0:
             print()
@@ -46,6 +33,19 @@ class Node:
             self.smaller.preorder(prepend, indent + 1, indent)
         prepend.pop() 
 
+    def inorder(self):
+        if self.smaller:
+            self.smaller.inorder()
+        print(self.value, end=' ')
+        if self.larger:
+            self.larger.inorder()
+
+    def postorder(self):
+        smaller = self.smaller.postorder() if self.smaller else []
+        larger = self.larger.postorder() if self.larger else []
+        longest = smaller if len(smaller) > len(larger) else larger
+        return [self.value] + longest
+
 class BinTree:
     def __init__(self):
         self.root = None
@@ -56,6 +56,10 @@ class BinTree:
         else:
             self.root = Node(value)
 
+    def preorder(self):
+        self.root.preorder([])
+        print()
+
     def inorder(self):
         self.root.inorder()
         print()
@@ -63,21 +67,20 @@ class BinTree:
     def postorder(self):
         print(self.root.postorder())
 
-    def preorder(self):
-        self.root.preorder([])
-        print()
-            
-bintree = BinTree()
-data = list(range(10))
-data = list('abcdefghijklmnopqrstuvwxyz')
+n = 8
+data = list(string.ascii_lowercase[:n])
 random.shuffle(data)
+print('build binary tree with elements: ', data)
+bintree = BinTree()
 for i in data:
+    print(' insert:', i)
     bintree.insert(i)
 
+print('\npreorder traversal: print full tree structure')
+bintree.preorder()
     
-print('inorder traversal: all values in sorted order')
+print('\ninorder traversal: all values in sorted order')
 bintree.inorder()
+
 print('\npostorder traversal: longest path from root to leaf')
 bintree.postorder()
-print('\npreorder traversal: full tree structure')
-bintree.preorder()
