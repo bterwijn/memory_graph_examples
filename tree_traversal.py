@@ -19,7 +19,7 @@ class Node:
             else:
                 self.larger = Node(value)
 
-    def preorder(self, prepend=None, indent=0, remove=-1):
+    def preorder(self, prepend, indent=0, remove=-1):
         if remove >= 0:
             print()
             prepend[remove] = '  └'
