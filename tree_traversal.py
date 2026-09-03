@@ -24,7 +24,7 @@ class Node:
             print()
             prepend[remove] = '  └'
             print(''.join(prepend), end='')
-            prepend[remove] = ' ' * len(prepend[remove])
+            prepend[remove] = '   '
         print(f'──{self.value}', end='')
         prepend.append('  │' if self.smaller else '   ')
         if self.larger:
