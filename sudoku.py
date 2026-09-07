@@ -2,19 +2,21 @@
 def main():
     sudoku = Sudoku()
     board = """
-- - 3 # - 2 - # 6 - - 
-9 - - # 3 - 5 # - - 1 
-- - 1 # 8 - 6 # 4 - - 
-#####################
-- - 8 # 1 - 2 # 9 - -
-7 - - # - - - # - - 8
-- - 6 # 7 - 8 # 2 - -
-#####################
-- - 2 # 6 - 9 # 5 - -
-8 - - # 2 - 3 # - - 9
-- - 5 # - 1 - # 3 - -
+. . 3 | . 2 . | 6 . . 
+9 . . | 3 . 5 | . . 1 
+. . 1 | 8 . 6 | 4 . . 
+------+-------+------
+. . 8 | 1 . 2 | 9 . -
+7 . . | . . . | . . 8
+. . 6 | 7 . 8 | 2 . -
+------+-------+------
+. . 2 | 6 . 9 | 5 . -
+8 . . | 2 . 3 | . . 9
+. . 5 | . 1 . | 3 . -
 """
     sudoku.set_board(board)
+    print('initial board:')
+    print(sudoku)
     sudoku.solve()
     print('no more solutions')
 
@@ -42,11 +44,15 @@ class Sudoku:
     def __repr__(self):
         s = ''
         for row in range(self.size):
+            if row % 3 == 0 and row > 0:
+                s += '+-'.join('-' * 2 * (self.square_size) for _ in range(self.square_size)) + '\n'
             for col in range(self.size):
+                if col % 3 == 0 and col > 0:
+                    s += '| '
                 if len(self.values[row][col]) == 1:
                     s += str(next(iter(self.values[row][col]))) + ' '
                 else:
-                    s += '- '
+                    s += '. '
             s+='\n'  # new line
         return s
 
@@ -54,11 +60,14 @@ class Sudoku:
         lines = board.strip().splitlines()
         row = 0
         for i, line in enumerate(lines):
-            line = line.strip().strip("#")
-            if line:        
+            line = line.replace('|', '')
+            line = line.replace('-', '')
+            line = line.replace('+', '')
+            line = line.strip()
+            if line:
                 col = 0
                 for c in line:
-                    if c in ' #':  # ignore
+                    if c in ' ':  # ignore white space
                         continue
                     if c.isdigit():
                         self.set_number(row, col, int(c))
@@ -119,6 +128,7 @@ class Sudoku:
             for number in self.values[row][cell]:
                 dead_end, old_numbers, removed_from_cells = self.set_number(row, cell, number)
                 if not dead_end:
+                    #print(self)
                     self.solve()
                 self.unset_number(row, cell, number, old_numbers, removed_from_cells)
                 #print('backtrack')
