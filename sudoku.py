@@ -1,3 +1,4 @@
+import string
 
 def main():
     sudoku = Sudoku()
@@ -45,7 +46,7 @@ class Sudoku:
         s = ''
         for row in range(self.size):
             if row % 3 == 0 and row > 0:
-                s += '+-'.join('-' * 2 * (self.square_size) for _ in range(self.square_size)) + '\n'
+                s += '-+-'.join('-' * (2*(self.square_size)-1) for _ in range(self.square_size)) + '\n'
             for col in range(self.size):
                 if col % 3 == 0 and col > 0:
                     s += '| '
@@ -59,17 +60,12 @@ class Sudoku:
     def set_board(self, board):
         lines = board.strip().splitlines()
         row = 0
-        for i, line in enumerate(lines):
-            line = line.replace('|', '')
-            line = line.replace('-', '')
-            line = line.replace('+', '')
-            line = line.strip()
+        for _, line in enumerate(lines):
+            line = ''.join([s for s in line if s in '.' + string.digits])
             if line:
                 col = 0
                 for c in line:
-                    if c in ' ':  # ignore white space
-                        continue
-                    if c.isdigit():
+                    if c.isdigit() and c != '0':
                         self.set_number(row, col, int(c))
                     col += 1
                 row += 1
@@ -116,6 +112,23 @@ class Sudoku:
                     elif nr_options == min_options:
                         min_cells.append((row, col))
         return min_options, min_cells
+
+    def get_least_constraining_value(self, cells):
+        max_options = self.size * 3
+        best_row = None
+        best_col = None
+        best_number = None
+        for row, col in cells:
+            for number in self.values[row][col]:
+                dead_end, old_numbers, removed_from_cells = self.set_number(row, col, number)
+                if not dead_end:
+                    if len(removed_from_cells) < max_options:
+                        max_options = len(removed_from_cells)
+                        best_row = row
+                        best_col = col
+                        best_number = number
+                self.unset_number(row, col, number, old_numbers, removed_from_cells)
+        return best_row, best_col, best_number
     
     def solve(self):
         min_options, min_cells = self.get_most_constrained_cells()
@@ -124,13 +137,11 @@ class Sudoku:
             print('solution found:')
             print(self)
         elif min_cells:
-            row, cell = min_cells[0]
-            for number in self.values[row][cell]:
-                dead_end, old_numbers, removed_from_cells = self.set_number(row, cell, number)
-                if not dead_end:
-                    #print(self)
-                    self.solve()
-                self.unset_number(row, cell, number, old_numbers, removed_from_cells)
+            best_row, best_col, best_number = self.get_least_constraining_value(min_cells)
+            if best_row is not None:
+                dead_end, old_numbers, removed_from_cells = self.set_number(best_row, best_col, best_number)
+                self.solve()
+                self.unset_number(best_row, best_col, best_number, old_numbers, removed_from_cells)
                 #print('backtrack')
 
 main()
