@@ -138,35 +138,42 @@ class Sudoku:
                         min_cells.append((row, col))
         return min_options, min_cells
 
-    def get_least_constraining_value(self, cells):
-        max_options = self.size * 3
-        best_row = None
-        best_col = None
-        best_number = None
-        for row, col in cells:
+    def get_least_constraining_values_ordered(self, cells):
+        values_ordered = []
+        min_removed_from_cells = self.size * 3
+        best_cell = None
+        #print(f'=== {cells=}')
+        for cell in cells:
+            #print(f'{cell=}')
+            row, col = cell
             for number in self.values[row][col]:
                 dead_end, old_numbers, removed_from_cells = self.set_number(row, col, number)
+                #print(f'{dead_end=} {number=} {removed_from_cells=}')
                 if not dead_end:
-                    if len(removed_from_cells) < max_options:
-                        max_options = len(removed_from_cells)
-                        best_row = row
-                        best_col = col
-                        best_number = number
+                    nr_removed_from_cells = len(removed_from_cells)
+                    if nr_removed_from_cells < min_removed_from_cells:
+                        min_removed_from_cells = nr_removed_from_cells
+                        best_cell = cell
+                    values_ordered.append((nr_removed_from_cells, cell, number))
                 self.unset_number(row, col, number, old_numbers, removed_from_cells)
-        return best_row, best_col, best_number
-    
+        values_ordered = [v for v in values_ordered if v[1] == best_cell]
+        values_ordered.sort(key=lambda x: x[0])
+        return values_ordered
+
     def solve(self):
         min_options, min_cells = self.get_most_constrained_cells()
         #print('solve', min_options, min_cells)
-        if min_options == self.size + 1:
+        if min_options > self.size:
             print('solution found:')
             print(self)
         elif min_cells:
-            best_row, best_col, best_number = self.get_least_constraining_value(min_cells)
-            if best_row is not None:
-                dead_end, old_numbers, removed_from_cells = self.set_number(best_row, best_col, best_number)
-                self.solve()
-                self.unset_number(best_row, best_col, best_number, old_numbers, removed_from_cells)
-                #print('backtrack')
+            values_ordered = self.get_least_constraining_values_ordered(min_cells)
+            #print(f'{values_ordered=}')
+            if values_ordered:
+                for nr_removed_from_cells, cell, number in values_ordered:
+                    row, col = cell
+                    dead_end, old_numbers, removed_from_cells = self.set_number(row, col, number)
+                    self.solve()
+                    self.unset_number(row, col, number, old_numbers, removed_from_cells)
 
 main()
