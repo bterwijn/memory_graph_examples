@@ -1,4 +1,5 @@
 import string
+import functools as ft
 
 def main():
 
@@ -60,6 +61,9 @@ class Sudoku:
         size, given_numbers = self.set_board(board)
         self.size = size
         self.square_size = int(size ** 0.5)
+        Sudoku.horizontal_indices.cache_clear()
+        Sudoku.vertical_indices.cache_clear()
+        Sudoku.square_indices.cache_clear()
         self.clear(size)
         self.set_given_numbers(given_numbers)
 
@@ -106,14 +110,17 @@ class Sudoku:
             s+='\n'  # new line
         return s
 
+    @ft.cache
     def horizontal_indices(self, row, col):
         no_col = col // self.square_size
         return [(row, c) for c in range(self.size) if c // self.square_size != no_col]
 
+    @ft.cache
     def vertical_indices(self, row, col):
         no_row = row // self.square_size
         return [(r, col) for r in range(self.size) if r // self.square_size != no_row]
 
+    @ft.cache
     def square_indices(self, row, col):
         start_row = (row // self.square_size) * self.square_size
         start_col = (col // self.square_size) * self.square_size
