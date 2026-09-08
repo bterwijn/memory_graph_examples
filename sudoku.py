@@ -1,7 +1,7 @@
 import string
 
 def main():
-    sudoku = Sudoku()
+
     board1 = """
 . . 3 | . 2 . | 6 . . 
 9 . . | 3 . 5 | . . 1 
@@ -48,20 +48,6 @@ def main():
         print(sudoku)
         sudoku.solve()
         print('no more solutions')
-
-
-def horizontal_indices(size, row, col):
-    return [(row, c) for c in range(size) if c != col]
-
-def vertical_indices(size, row, col):
-    return [(r, col) for r in range(size) if r != row]
-
-def square_indices(square_size, row, col):
-    start_row = (row // square_size) * square_size
-    start_col = (col // square_size) * square_size
-    return [(r, c) for r in range(start_row, start_row + square_size)
-                    for c in range(start_col, start_col + square_size)
-                    if (r, c) != (row, col)]
 
 class Sudoku:
     UNSET = 0
@@ -120,23 +106,38 @@ class Sudoku:
             s+='\n'  # new line
         return s
 
+    def horizontal_indices(self, row, col):
+        no_col = col // self.square_size
+        return [(row, c) for c in range(self.size) if c // self.square_size != no_col]
+
+    def vertical_indices(self, row, col):
+        no_row = row // self.square_size
+        return [(r, col) for r in range(self.size) if r // self.square_size != no_row]
+
+    def square_indices(self, row, col):
+        start_row = (row // self.square_size) * self.square_size
+        start_col = (col // self.square_size) * self.square_size
+        return [(r, c) for r in range(start_row, start_row + self.square_size)
+                        for c in range(start_col, start_col + self.square_size)
+                        if (r, c) != (row, col)]
+
     def set_number(self, row, col, number):
         old_numbers = self.values[row][col]
         self.values[row][col] = {number}
         self.board[row][col] = number
         remove_from_cells = []
         dead_end = False
-        for r, c in horizontal_indices(self.size, row, col):
+        for r, c in self.horizontal_indices(row, col):
             if number in self.values[r][c]:
                 self.values[r][c].remove(number)
                 remove_from_cells.append((r, c))
                 dead_end = dead_end or len(self.values[r][c]) == 0
-        for r, c in vertical_indices(self.size, row, col):
+        for r, c in self.vertical_indices(row, col):
             if number in self.values[r][c]:
                 self.values[r][c].remove(number)
                 remove_from_cells.append((r, c))
                 dead_end = dead_end or len(self.values[r][c]) == 0
-        for r, c in square_indices(self.square_size, row, col):
+        for r, c in self.square_indices(row, col):
             if number in self.values[r][c]:
                 self.values[r][c].remove(number)
                 remove_from_cells.append((r, c))
