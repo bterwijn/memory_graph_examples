@@ -2,21 +2,21 @@ import string
 
 def main():
     sudoku = Sudoku()
-    board = """
+    board1 = """
 . . 3 | . 2 . | 6 . . 
 9 . . | 3 . 5 | . . 1 
 . . 1 | 8 . 6 | 4 . . 
 ------+-------+------
-. . 8 | 1 . 2 | 9 . -
+. . 8 | 1 . 2 | 9 . .
 7 . . | . . . | . . 8
-. . 6 | 7 . 8 | 2 . -
+. . 6 | 7 . 8 | 2 . .
 ------+-------+------
-. . 2 | 6 . 9 | 5 . -
+. . 2 | 6 . 9 | 5 . .
 8 . . | 2 . 3 | . . 9
-. . 5 | . 1 . | 3 . -
+. . 5 | . 1 . | 3 . .
 """
 
-    board = """
+    board2 = """
 8 0 0 0 0 0 0 0 0
 0 0 3 6 0 0 0 0 0
 0 7 0 0 9 0 2 0 0
@@ -28,7 +28,7 @@ def main():
 0 9 0 0 0 0 4 0 0
 """
 
-    board2= """
+    board3 = """
 0 0 0 0 0 0 6 8 0
 0 0 0 0 7 3 0 0 9
 3 0 9 0 0 0 0 4 5
@@ -39,12 +39,15 @@ def main():
 7 0 0 6 8 0 0 0 0
 0 2 8 0 0 0 0 0 0
 """
+    boards = [board1, board2, board3]
 
-    sudoku.set_board(board)
-    print('initial board:')
-    print(sudoku)
-    sudoku.solve()
-    print('no more solutions')
+    sudoku = Sudoku()
+    for board in boards:
+        sudoku.reset(board)
+        print('initial board:')
+        print(sudoku)
+        sudoku.solve()
+        print('no more solutions')
 
 
 def horizontal_indices(size, row, col):
@@ -61,11 +64,46 @@ def square_indices(square_size, row, col):
                     if (r, c) != (row, col)]
 
 class Sudoku:
+    UNSET = 0
 
-    def __init__(self, size = 9):
+    def __init__(self, board = None):
+        if board is not None:
+            self.reset(board)
+
+    def reset(self, board):
+        size, given_numbers = self.set_board(board)
         self.size = size
         self.square_size = int(size ** 0.5)
+        self.clear(size)
+        self.set_given_numbers(given_numbers)
+
+    def set_board(self, board):
+        size = None
+        given_nubers = []
+        lines = board.strip().splitlines()
+        row = 0
+        for _, line in enumerate(lines):
+            line = ''.join([s for s in line if s in '.' + string.digits])
+            if line:
+                col = 0
+                for c in line:
+                    if c.isdigit() and c != '0':
+                        given_nubers.append((row, col, int(c)))
+                    col += 1
+                if size is None:
+                    size = col
+                elif size != col:
+                    raise ValueError(f'line {line} has {col} columns, expected {size}')
+                row += 1
+        return size, given_nubers
+
+    def clear(self, size):
         self.values = [[set(range(1, size+1)) for _ in range(size)] for _ in range(size)]
+        self.board = [[Sudoku.UNSET for _ in range(size)] for _ in range(size)]
+
+    def set_given_numbers(self, given_numbers):
+        for row, col, number in given_numbers:
+            self.set_number(row, col, number)
 
     def __repr__(self):
         s = ''
@@ -75,29 +113,17 @@ class Sudoku:
             for col in range(self.size):
                 if col % 3 == 0 and col > 0:
                     s += '| '
-                if len(self.values[row][col]) == 1:
-                    s += str(next(iter(self.values[row][col]))) + ' '
+                if self.board[row][col] != Sudoku.UNSET:
+                    s += str(self.board[row][col]) + ' '
                 else:
                     s += '. '
             s+='\n'  # new line
         return s
 
-    def set_board(self, board):
-        lines = board.strip().splitlines()
-        row = 0
-        for _, line in enumerate(lines):
-            line = ''.join([s for s in line if s in '.' + string.digits])
-            if line:
-                col = 0
-                for c in line:
-                    if c.isdigit() and c != '0':
-                        self.set_number(row, col, int(c))
-                    col += 1
-                row += 1
-
     def set_number(self, row, col, number):
         old_numbers = self.values[row][col]
         self.values[row][col] = {number}
+        self.board[row][col] = number
         remove_from_cells = []
         dead_end = False
         for r, c in horizontal_indices(self.size, row, col):
@@ -120,6 +146,7 @@ class Sudoku:
 
     def unset_number(self, row, col, number, old_numbers, remove_from_cells):
         self.values[row][col] = old_numbers
+        self.board[row][col] = Sudoku.UNSET
         for r, c in remove_from_cells:
             self.values[r][c].add(number)
         #print(f'unset {row=} {col=} {number=}')
@@ -129,8 +156,8 @@ class Sudoku:
         min_cells = []
         for row in range(self.size):
             for col in range(self.size):
-                nr_options = len(self.values[row][col])
-                if nr_options > 1:
+                if self.board[row][col] == Sudoku.UNSET:
+                    nr_options = len(self.values[row][col])
                     if nr_options < min_options:
                         min_options = nr_options
                         min_cells = [(row, col)]
