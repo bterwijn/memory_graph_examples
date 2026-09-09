@@ -29,17 +29,7 @@ def main():
 0 9 0 0 0 0 4 0 0
 """
 
-    board3 = """
-0 0 0 0 0 0 6 8 0
-0 0 0 0 7 3 0 0 9
-3 0 9 0 0 0 0 4 5
-4 9 0 0 0 0 0 0 0
-8 0 3 0 5 0 9 0 2
-0 0 0 0 0 0 0 3 6
-9 6 0 0 0 0 3 0 8
-7 0 0 6 8 0 0 0 0
-0 2 8 0 0 0 0 0 0
-"""
+    board3 = "000000680000073009309000045490000000803050902000000036960000308700680000028000000"
 
     boards = [board1, board2, board3]
     sudoku = Sudoku()
@@ -72,24 +62,16 @@ class Sudoku:
         self.set_given_numbers(given_numbers)
 
     def set_board(self, board):
-        size = None
-        given_nubers = []
-        lines = board.strip().splitlines()
-        row = 0
-        for _, line in enumerate(lines):
-            line = ''.join([s for s in line if s in '.' + string.digits])
-            if line:
-                col = 0
-                for c in line:
-                    if c.isdigit() and c != '0':
-                        given_nubers.append((row, col, int(c)))
-                    col += 1
-                if size is None:
-                    size = col
-                elif size != col:
-                    raise ValueError(f'line {line} has {col} columns, expected {size}')
-                row += 1
-        return size, given_nubers
+            size = None
+            given_nubers = []
+            lines = ''.join([c for c in board if c in '.' + string.digits])
+            size = int(len(lines) ** 0.5)
+            for i in range(len(lines)):
+                row , col= divmod(i, size)
+                c = lines[i]
+                if c.isdigit() and c != '0':
+                    given_nubers.append((row, col, int(c)))
+            return size, given_nubers
 
     def clear(self, size):
         self.values = [[set(range(1, size+1)) for _ in range(size)] for _ in range(size)]
