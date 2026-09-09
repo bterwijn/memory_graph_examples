@@ -134,7 +134,7 @@ class Sudoku:
 
     def set_number(self, row, col, number):
         old_numbers = self.values[row][col]
-        self.values[row][col] = {number}
+        self.values[row][col] = set()
         self.board[row][col] = number
         remove_from_cells = []
         dead_end = False
