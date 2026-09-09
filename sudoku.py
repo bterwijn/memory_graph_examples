@@ -40,8 +40,8 @@ def main():
 7 0 0 6 8 0 0 0 0
 0 2 8 0 0 0 0 0 0
 """
-    boards = [board1, board2, board3]
 
+    boards = [board1, board2, board3]
     sudoku = Sudoku()
     for board in boards:
         sudoku.reset(board)
@@ -53,17 +53,21 @@ def main():
 class Sudoku:
     UNSET = 0
 
-    def __init__(self, board = None):
+    def __init__(self, board = None, single_solution = True):
+        self.single_solution = single_solution
+        self.size = None
         if board is not None:
             self.reset(board)
 
     def reset(self, board):
+        self.continue_solving = True
         size, given_numbers = self.set_board(board)
-        self.size = size
-        self.square_size = int(size ** 0.5)
-        Sudoku.horizontal_indices.cache_clear()
-        Sudoku.vertical_indices.cache_clear()
-        Sudoku.square_indices.cache_clear()
+        if size != self.size:
+            self.size = size
+            self.square_size = int(size ** 0.5)
+            Sudoku.horizontal_indices.cache_clear()
+            Sudoku.vertical_indices.cache_clear()
+            Sudoku.square_indices.cache_clear()
         self.clear(size)
         self.set_given_numbers(given_numbers)
 
@@ -201,7 +205,9 @@ class Sudoku:
         if min_options > self.size:
             print('solution found:')
             print(self)
-        elif min_cells:
+            if self.single_solution:
+                self.continue_solving = False
+        elif min_cells and self.continue_solving:
             values_ordered = self.get_least_constraining_values_ordered(min_cells)
             #print(f'{values_ordered=}')
             if values_ordered:
@@ -211,4 +217,5 @@ class Sudoku:
                     self.solve()
                     self.unset_number(row, col, number, old_numbers, removed_from_cells)
 
-main()
+if __name__ == '__main__':
+    main()
