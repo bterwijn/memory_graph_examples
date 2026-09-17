@@ -21,7 +21,7 @@ print(f'COIN NR_COINS COIN_TOTAL')
 for coin, count in coins.items():
     coin_total = coin * count
     print(f'{coin:4} {count:8} {coin_total:10}') 
-    coins_total += coin * count
+    coins_total += coin_total
 print(f'               --------- +')
 print(f'coins_total:  {coins_total:10}')
 print(f'remaining:    {remaining:10}')
