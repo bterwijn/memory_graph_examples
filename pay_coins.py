@@ -3,8 +3,8 @@ import random
 def pay(amount, denominations):
     coins = {d:0 for d in sorted(denominations, reverse=True)}
     for coin in coins:
-        count, amount = divmod(amount, coin)
-        coins[coin] = count
+        nr_coins, amount = divmod(amount, coin)
+        coins[coin] = nr_coins
     return amount, coins
 
 amount_to_pay = 1000 + random.randrange(2000)
