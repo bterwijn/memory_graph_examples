@@ -15,7 +15,7 @@ class Person:
         return self.age
 
 names = ['Carol', 'Ann', 'Dave',  'Bob']    
-people = [ Person(n,random.randrange(100)) for n in names]
+people = [Person(n,random.randrange(100)) for n in names]
 print('unsorted:', people)
 
 sort_name = sorted(people, key= lambda p : p.get_name())
