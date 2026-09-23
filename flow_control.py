@@ -15,7 +15,7 @@ else:
 
 i = -1
 # while, break, continue
-while i < 10:  # <-- continue
+while i < 10:  # <== continue
     i+=1
     print(i)
     if i >= 8:
@@ -23,7 +23,7 @@ while i < 10:  # <-- continue
     if i % 2 == 0:  # if i is even
         continue
     print('odd')
-# <-- break
+# <== break
 
 
 myrange = range(10)  # create a range
@@ -32,14 +32,14 @@ mylist = list(myrange)  # convert to list
 print(f'{mylist=}')
 
 # for, break, continue
-for i in myrange:  # <-- continue
+for i in myrange:  # <== continue
     print(i)
     if i >= 8:
         break
     if i % 2 == 0:  # if i is even
         continue
     print('odd')
-# <-- break
+# <== break
 
 
 # def, return
