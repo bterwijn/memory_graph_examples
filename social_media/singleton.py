@@ -19,7 +19,7 @@ exp2 = Expensive()
 exp3 = Expensive()
 
 
-print("\navoid repeated initialization")
+print("\n=== Avoid repeated initialization")
 class Expensive:
     _instance = None
     _initialized = False
@@ -39,7 +39,7 @@ exp2 = Expensive()
 exp3 = Expensive()
 
 
-print("\nbut maybe using a cached function is cleaner?")
+print("\n=== But maybe using a cached function is cleaner?")
 from functools import cache
 
 class Expensive:
