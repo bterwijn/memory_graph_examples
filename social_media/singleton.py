@@ -43,13 +43,14 @@ print("\nbut maybe using a cached function is cleaner?")
 from functools import cache
 
 class Expensive:
-    def __init__(self):
+    def __init__(self, singleton = None):
+        if singleton != "overwrite":
+            raise TypeError("Use get_expensive() instead of Expensive()")
         print("Doing expensive initialization once")
 
 @cache
 def get_expensive():
-    return Expensive()
-
+    return Expensive(singleton = "overwrite")
 
 exp1 = get_expensive()
 exp2 = get_expensive()
