@@ -3,7 +3,7 @@ import functools as ft
 
 def main():
 
-    board1 = """
+    easy = """
 . . 3 | . 2 . | 6 . . 
 9 . . | 3 . 5 | . . 1 
 . . 1 | 8 . 6 | 4 . . 
@@ -16,22 +16,24 @@ def main():
 8 . . | 2 . 3 | . . 9
 . . 5 | . 1 . | 3 . .
 """
-
-    board2 = """
-8 0 0 0 0 0 0 0 0
-0 0 3 6 0 0 0 0 0
-0 7 0 0 9 0 2 0 0
-0 5 0 0 0 7 0 0 0
-0 0 0 0 4 5 7 0 0
-0 0 0 1 0 0 0 3 0
-0 0 1 0 0 0 0 6 8
-0 0 8 5 0 0 0 1 0
-0 9 0 0 0 0 4 0 0
+    
+    # first puzzle in Gordon Royle’s collection of 17-clue Sudokus
+    medium = """
+0 0 0 0 0 0 0 1 0
+4 0 0 0 0 0 0 0 0
+0 2 0 0 0 0 0 0 0
+0 0 0 0 5 0 4 0 7
+0 0 8 0 0 0 3 0 0
+0 0 1 0 9 0 0 0 0
+3 0 0 4 0 0 2 0 0
+0 5 0 1 0 0 0 0 0
+0 0 0 8 0 6 0 0 0
 """
 
-    board3 = "000000680000073009309000045490000000803050902000000036960000308700680000028000000"
+    # "Everest" by Arto Inkala: https://www.sudokuwiki.org/Arto_Inkala_Sudoku
+    hard = "800000000003600000070090200050007000000045700000100030001000068008500010090000400"
 
-    boards = [board1, board2, board3]
+    boards = [easy, medium, hard]
     sudoku = Sudoku()
     for board in boards:
         sudoku.reset(board)
@@ -93,7 +95,8 @@ class Sudoku:
                     s += str(self.board[row][col]) + ' '
                 else:
                     s += '. '
-            s+='\n'  # new line
+            if row < self.size - 1: 
+                s+='\n'  # new line
         return s
 
     @ft.cache
@@ -182,10 +185,11 @@ class Sudoku:
         return values_ordered
 
     def solve(self):
+        print(); print(self)
         min_options, min_cells = self.get_most_constrained_cells()
         #print('solve', min_options, min_cells)
         if min_options > self.size:
-            print('solution found:')
+            print('##### solution found:')
             print(self)
             if self.single_solution:
                 self.continue_solving = False
