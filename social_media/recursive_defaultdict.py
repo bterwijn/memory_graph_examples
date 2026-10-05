@@ -1,3 +1,4 @@
+from pprint import pprint
 from collections import defaultdict
 
 # defaultdict uses factory to create default value of 
@@ -31,3 +32,5 @@ config["spark"]["sql"]["yyy"] = 200
 config["A"]["B"]["C"] = 100
 
 # no KeyError, levels appear as needed
+
+pprint(config)
