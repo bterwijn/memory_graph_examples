@@ -43,13 +43,15 @@ for i in myrange:  # <== continue
 
 
 # def, return
-def function_name(x, y):
-    print(f'{x=} {y=}')
-    result = x + y
-    print(f'{result=}')
-    return result
+def function_name(a, b):
+    print(f'{a=} {b=}')
+    a *= 10  # only change local 'a' variable
+    b *= 10
+    c = a + b
+    print(f'{a=} {b=} {c=}')
+    return c
 
-a = 10
-b = 6
+a = 1
+b = 5
 c = function_name(a, b)
-print(f'{c=}')
+print(f'{a=} {b=} {c=}')  # global 'a' variable still unchanged
