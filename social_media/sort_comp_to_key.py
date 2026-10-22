@@ -19,10 +19,6 @@ def cmp_to_key(mycmp):
         __hash__ = None
     return K
 
-n = 5
-data = [random.randrange(n) for i in range(n)]
-print(f'{data=}')
-
 def mycmp(a, b):
     print("comparing ", a, " and ", b)
     if a > b:
@@ -32,5 +28,8 @@ def mycmp(a, b):
     else:
         return 0
 
+n = 5
+data = [random.randrange(n) for i in range(n)]
+print(f'{data=}')
 data_sorted = sorted(data, key = cmp_to_key(mycmp))
 print(f'{data_sorted=}')
