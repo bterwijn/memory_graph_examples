@@ -12,13 +12,11 @@ def gravity(cells):
              
 def print_cells(cells):
     for r in range(rows):
-        r1 = r + 1
-        print( ''.join(cells[r*cols:r1*cols]) )
+        print( ''.join(cells[r*cols:(r+1)*cols]) )
     print('='*cols)
 
 def is_full(cells):
-    d = [cells[i]=='*' for i in range(rows * cols)]
-    return all(d)
+    return all(cells[i]=='*' for i in range(rows * cols))
 
 rows = 8
 cols = 12
