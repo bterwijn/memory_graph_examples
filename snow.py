@@ -13,7 +13,7 @@ def gravity(cells):
 def print_cells(cells):
     for r in range(rows):
         r1 = r + 1
-        print( ''.join(cells[r*cols:r1*cols]))
+        print( ''.join(cells[r*cols:r1*cols]) )
     print('='*cols)
 
 def is_full(cells):
