@@ -34,7 +34,7 @@ print(f'{type(elements)=}')
 print(f'{list(elements)=}')
 
 print('\n=== unary plus removes zero and negative counts')
-print('=== unary minus keeps negative counts, as positive')
+print('=== unary minus keeps only negative counts, as positive')
 print(f'{ counter=}')
 print(f'{+counter=}')
 print(f'{-counter=}')
