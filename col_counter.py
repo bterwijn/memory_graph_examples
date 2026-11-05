@@ -32,8 +32,9 @@ print(f'{type(elements)=}')
 print(f'{list(elements)=}')
 
 print('\n=== unary plus removes zero and negative counts')
-print(f'{+counter=}')
 print(f'{ counter=}')
+print(f'{+counter=}')
+print(f'{-counter=}')
 
 print('\n=== operations on two counters')
 left  = Counter(a=3,      b=1, d= 1, e= 3, f= 5, g=-5)
