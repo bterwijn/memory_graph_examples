@@ -53,20 +53,20 @@ left  = Counter(a=1,      b=0)
 right = Counter(a=1, c=0,    )
 print(f'{left=} {right=}')
 print(f'{left == right}')  # True if all counts agree. Missing counts are treated as zero.
-print(f'{left <= right}')  # True if all counts in self are a subset of those in other.
-print(f'{left <  right}')  # True if all counts in self are a proper subset of those in other.
-print(f'{left >= right}')  # True if all counts in self are a superset of those in other.
-print(f'{left >  right}')  # True if all counts in self are a proper superset of those in other.
+print(f'{left <= right}')  # True if all counts in 'left' are a subset of those in 'right'.
+print(f'{left <  right}')  # True if all counts in 'left' are a proper subset of those in 'right'.
+print(f'{left >= right}')  # True if all counts in 'left' are a superset of those in 'right'.
+print(f'{left >  right}')  # True if all counts in 'left' are a proper superset of those in 'right'.
 
 print('\n=== comparison of two counters')
 left  = Counter(a=1,      b=1)
 right = Counter(a=1, c=0,    )
 print(f'{left=} {right=}')
 print(f'{left == right}')  # True if all counts agree. Missing counts are treated as zero.
-print(f'{left <= right}')  # True if all counts in self are a subset of those in other.
-print(f'{left <  right}')  # True if all counts in self are a proper subset of those in other.
-print(f'{left >= right}')  # True if all counts in self are a superset of those in other.
-print(f'{left >  right}')  # True if all counts in self are a proper superset of those in other.
+print(f'{left <= right}')  # True if all counts in 'left' are a subset of those in 'right'.
+print(f'{left <  right}')  # True if all counts in 'left' are a proper subset of those in 'right'.
+print(f'{left >= right}')  # True if all counts in 'left' are a superset of those in 'right'.
+print(f'{left >  right}')  # True if all counts in 'left' are a proper superset of those in 'right'.
 
 print('\n=== missing keys versus stored zero counts')
 counter = Counter(a=2, b=0)
