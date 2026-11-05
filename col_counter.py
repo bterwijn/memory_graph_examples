@@ -42,7 +42,7 @@ print(f'{-counter=}')
 print('\n=== operations on two counters')
 left  = Counter(a=3,      b=1, d= 1, e= 3, f= 5, g=-5)
 right = Counter(a=1, c=2,      d=-2, e=-3, f=-4, g=-6, h=-7)
-# in order order of counts
+# in order of counts:
 print(f'{left | right=}')  # union, maximum the counts, only positive elements
 print(f'{left & right=}')  # intersection, minimum of counts, only positive elements
 print(f'{left + right=}')  # addition, add the counts, only positive elements
