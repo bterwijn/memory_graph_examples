@@ -76,7 +76,7 @@ print(f'{counter["z"]=}')
 print(f'{"b" in counter=}')
 print(f'{"z" in counter=}')
 
-print('\n=== subtract() retains negative counts, the - operator discards them')
+print('\n=== subtract() retains non-positive counts, the - operator discards them')
 left = Counter(a=2, b=1)
 right = Counter(a=3, b=1)
 left_copy = left.copy()
