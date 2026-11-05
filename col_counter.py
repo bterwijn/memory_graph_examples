@@ -18,6 +18,8 @@ print(f'{counter.most_common(2)=}')
 print('\n=== update() adds to existing counts')
 counter.update(['a', 'd', 'd'])
 print(f'{counter=}')
+counter.update({'a': -1, 'd':2})
+print(f'{counter=}')
 
 print('\n=== subtract() decounts; zeros and negatives are retained')
 counter.subtract(['b', 'b', 'c', 'c'])
@@ -32,6 +34,7 @@ print(f'{type(elements)=}')
 print(f'{list(elements)=}')
 
 print('\n=== unary plus removes zero and negative counts')
+print('=== unary minus keeps negative counts, as positive')
 print(f'{ counter=}')
 print(f'{+counter=}')
 print(f'{-counter=}')
@@ -40,8 +43,8 @@ print('\n=== operations on two counters')
 left  = Counter(a=3,      b=1, d= 1, e= 3, f= 5, g=-5)
 right = Counter(a=1, c=2,      d=-2, e=-3, f=-4, g=-6, h=-7)
 # in order order of counts
-print(f'{left | right=}')  # union, max the counts, only positive elements
-print(f'{left & right=}')  # intersection, min of counts, only positive elements
+print(f'{left | right=}')  # union, maximum the counts, only positive elements
+print(f'{left & right=}')  # intersection, minimum of counts, only positive elements
 print(f'{left + right=}')  # addition, add the counts, only positive elements
 print(f'{left - right=}')  # subtraction, subtract the counts, only positive elements
 
@@ -64,3 +67,19 @@ print(f'{left <= right}')  # True if all counts in self are a subset of those in
 print(f'{left <  right}')  # True if all counts in self are a proper subset of those in other.
 print(f'{left >= right}')  # True if all counts in self are a superset of those in other.
 print(f'{left >  right}')  # True if all counts in self are a proper superset of those in other.
+
+print('\n=== missing keys versus stored zero counts')
+counter = Counter(a=2, b=0)
+print(f'{counter=}')
+print(f'{counter["b"]=}')
+print(f'{counter["z"]=}')
+print(f'{"b" in counter=}')
+print(f'{"z" in counter=}')
+
+print('\n=== subtract() retains negative counts, the - operator discards them')
+left = Counter(a=2, b=1)
+right = Counter(a=3, b=1)
+left_copy = left.copy()
+left_copy.subtract(right)
+print(f'{left_copy=}')
+print(f'{left - right=}')
