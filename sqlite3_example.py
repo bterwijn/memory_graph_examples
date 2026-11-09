@@ -1,7 +1,5 @@
-
 import memory_graph as mg
 import sqlite3
-
 mg.extend_sqlite3()
 
 conn = sqlite3.connect(":memory:")
@@ -42,7 +40,7 @@ conn.executescript("""
     );
 """)
 
-# Insert students
+print('# Insert students')
 conn.executemany(
     "INSERT INTO students VALUES (?, ?, ?)",
     [
@@ -54,7 +52,7 @@ conn.executemany(
     ]
 )
 
-# Insert courses
+print('# Insert courses')
 conn.executemany(
     "INSERT INTO courses VALUES (?, ?)",
     [
@@ -64,7 +62,7 @@ conn.executemany(
     ]
 )
 
-# Insert teachers
+print('# Insert teachers')
 conn.executemany(
     "INSERT INTO teachers VALUES (?, ?)",
     [
@@ -75,7 +73,7 @@ conn.executemany(
     ]
 )
 
-# Enroll students in courses
+print('# Enroll students in courses')
 conn.executemany(
     "INSERT INTO enrollments VALUES (?, ?)",
     [
@@ -87,7 +85,7 @@ conn.executemany(
     ]
 )
 
-# Assign teachers to courses
+print('# Assign teachers to courses')
 conn.executemany(
     "INSERT INTO teaching_assignments VALUES (?, ?)",
     [
@@ -148,3 +146,4 @@ for teacher, course in conn.execute(query, (student_name,)):
     print(f"{student_name} -> {teacher} for {course}")
 
 conn.close()
+
