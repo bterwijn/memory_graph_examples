@@ -1,3 +1,4 @@
+import memory_graph as mg
 
 class MyMatrix:
     def __init__(self, rows, cols):
@@ -46,7 +47,7 @@ class MyMatrix:
         assert self.cols == other.rows  # valid dimensions
         nrows, ncols, mid = self.rows, other.cols, self.cols
         result = MyMatrix(nrows, ncols)
-        result.zeros()  # zero all ellements
+        result.zeros()  # zero all elements
         
         def add_row(other, col, result, row, multiplier):
             """ Add row 'col' in 'other' to row 'row' in 'result'
@@ -58,7 +59,26 @@ class MyMatrix:
             for c in range(self.cols):
                 add_row(other, c, result, r, self[r,c])
         return result
+    
 
+    def multiply_tiled(self, other, tile_size=2):
+        assert self.cols == other.rows  # valid dimensions
+        nrows, ncols, mid = self.rows, other.cols, self.cols
+        result = MyMatrix(nrows, ncols)
+        result.zeros()  # zero all elements
+
+        # Iterate over tiles
+        for rr in range(0, nrows, tile_size):
+            for cc in range(0, ncols, tile_size):
+                for kk in range(0, mid, tile_size):
+
+                    # Multiply and accumulate tiles
+                    for r in range(rr, min(rr + tile_size, nrows)):
+                        for c in range(cc, min(cc + tile_size, ncols)):
+                            for k in range(kk, min(kk + tile_size, mid)):
+                                result[r, c] += self[r, k] * other[k, c]
+
+        return result
 
 # Show MyMatrix as table
 mg.config.type_to_node[MyMatrix] = (
@@ -78,3 +98,6 @@ print(r1)
 
 r2 = m1.multiply_rows(m2)
 print(r2)
+
+r3 = m1.multiply_tiled(m2)
+print(r3)
