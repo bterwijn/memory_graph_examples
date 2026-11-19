@@ -98,7 +98,7 @@ conn.executemany(
 conn.commit()
 
 # Query students and their courses
-print("=== Students and courses ===")
+print("\n=== Students and courses ===")
 
 query = """
     SELECT students.name, courses.name
