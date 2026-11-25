@@ -1,8 +1,8 @@
 import memory_graph as mg
 import numpy as np
 
-mg.extend_numpy()
-mg.config.type_to_slicer[np.ndarray] = (mg.Slicer(), mg.Slicer())
+mg.extend_numpy()  # show ndarray as table
+mg.config.type_to_slicer[np.ndarray] = (mg.Slicer(), mg.Slicer())  # show full matrices
 
 print("\n=== Create data")
 N = 20
@@ -27,8 +27,8 @@ EigVal, EigVec = np.linalg.eig(Covar)
 print(f'{EigVal.shape=}')
 print(f'{EigVec.shape=}')
 
-print("\n=== Check Eigvec Orthonormality, just to see things are alright")
-lengths = np.linalg.norm(EigVec, axis=0)
+print("\n=== Check Eigvec Orthonormality, just to see things are alright, skip this normally")
+lengths = np.linalg.norm(EigVec, axis=0)  # compute lengths of column vectors
 assert np.allclose(lengths, np.ones(lengths.shape))  # lengths are close to 1
 for c1 in range(EigVec.shape[1]):
     for c2 in range(c1+1, EigVec.shape[1]):
