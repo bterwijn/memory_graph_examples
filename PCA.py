@@ -45,7 +45,7 @@ print(f'{W.shape=}')
 sumK_EigVal = np.sum(EigVal[:K,])  # resulting variance after projection
 print(f'{sumK_EigVal=}')
 
-print("\n=== Project from D to K dimension space")
+print("\n=== Project from D to K dimensional space")
 Z = XC @ W
 print(f'{Z.shape=}')
 CovarZ = np.cov(Z.T, bias=True)
