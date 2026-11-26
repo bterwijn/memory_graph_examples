@@ -59,6 +59,6 @@ XR = Z @ W.T + u
 print(f'{XR.shape=}')
 ReconstructErrors = X - XR
 CovarXR = np.cov(XR.T, bias=True)
-varXR = np.sum(np.diag(CovarZ))
+varXR = np.sum(np.diag(CovarXR))
 print(f'{varXR=}')
 assert np.allclose(varZ, varXR), "total variance in XR should be same as in Z"
