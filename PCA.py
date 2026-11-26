@@ -52,7 +52,7 @@ CovarZ = np.cov(Z.T, bias=True)
 varZ = np.sum(np.diag(CovarZ))
 print(f'{varZ=}')
 assert np.allclose(sumK_EigVal, varZ), "variance should be sum of K EigVals"
-assert varZ <= varX, "total variance in Z should be smaller (or equal) to that in X"
+assert varZ <= varX, "total variance in Z should be smaller (or equal when K=D) to that in X"
 
 print("\n=== Reconstruct XR from Z as close as possible to X")
 XR = Z @ W.T + u
