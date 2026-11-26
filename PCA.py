@@ -21,6 +21,8 @@ Covar = np.cov(XC.T, bias=True)
 Covar2 = XC.T @ XC / XC.shape[0]  # alternative way to compute covariance
 assert np.allclose(Covar, Covar2)  # check if they are (almost) equal
 print(f'{Covar.shape=}')
+varX = np.sum(np.diag(Covar))
+print(f'{varX=}')
 
 print("\n=== Eigen Decomposition")
 EigVal, EigVec = np.linalg.eig(Covar)
@@ -38,12 +40,23 @@ for c1 in range(EigVec.shape[1]):
 print("\n=== Build projection matrix with K eigen vectors with highest eigen values")
 W = EigVec[:, :K]
 print(f'{W.shape=}')
+sumK_EigVal = np.sum(EigVal[:K,])  # resulting variance after projection
+print(f'{sumK_EigVal=}')
 
 print("\n=== Project from D to K dimension space")
 Z = XC @ W
 print(f'{Z.shape=}')
+CovarZ = np.cov(Z.T, bias=True)
+varZ = np.sum(np.diag(CovarZ))
+print(f'{varZ=}')
+assert np.allclose(sumK_EigVal, varZ)  # variance should be sum of K EigVals
+assert varZ <= varX  # total variance in Z is smaller than total variance in X
 
-print("\n=== Reconstruct X from Z as good as possible")
+print("\n=== Reconstruct XR from Z as close as possible to X")
 XR = Z @ W.T + u
 print(f'{XR.shape=}')
-ReconstructError = X - XR
+ReconstructErrors = X - XR
+CovarXR = np.cov(XR.T, bias=True)
+varXR = np.sum(np.diag(CovarZ))
+print(f'{varXR=}')
+assert np.allclose(varZ, varXR)  # variance in XR is same as in Z
