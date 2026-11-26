@@ -15,11 +15,13 @@ print("\n=== Center X")
 u = np.mean(X, axis=0)
 XC = X - u  # X but shifted so it's centered
 print(f'{XC.shape=}')
+u_CX = np.mean(XC, axis=0)
+assert np.allclose(u_CX, np.zeros(u_CX.shape)), "not centered at origin"
 
 print("\n=== Compute covariance")
 Covar = np.cov(XC.T, bias=True)
 Covar2 = XC.T @ XC / XC.shape[0]  # alternative way to compute covariance
-assert np.allclose(Covar, Covar2)  # check if they are (almost) equal
+assert np.allclose(Covar, Covar2), "Covar and Covar2 should be equal"
 print(f'{Covar.shape=}')
 varX = np.sum(np.diag(Covar))
 print(f'{varX=}')
@@ -31,11 +33,11 @@ print(f'{EigVec.shape=}')
 
 print("\n=== Check Eigvec Orthonormality, just to see things are alright, skip this normally")
 lengths = np.linalg.norm(EigVec, axis=0)  # compute lengths of column vectors
-assert np.allclose(lengths, np.ones(lengths.shape))  # lengths are close to 1
+assert np.allclose(lengths, np.ones(lengths.shape)), "lengths should be close to 1"
 for c1 in range(EigVec.shape[1]):
     for c2 in range(c1+1, EigVec.shape[1]):
         d = np.dot(EigVec[:,c1], EigVec[:,c2])  # dot all combinations of column vectors
-        assert np.fabs(d) < 0.0000001  # orthogonal to each other: dot product close to 0
+        assert np.isclose(d, 0), "should be orthogonal to each other, dot close to 0"
 
 print("\n=== Build projection matrix with K eigen vectors with highest eigen values")
 W = EigVec[:, :K]
@@ -49,8 +51,8 @@ print(f'{Z.shape=}')
 CovarZ = np.cov(Z.T, bias=True)
 varZ = np.sum(np.diag(CovarZ))
 print(f'{varZ=}')
-assert np.allclose(sumK_EigVal, varZ)  # variance should be sum of K EigVals
-assert varZ <= varX  # total variance in Z is smaller than total variance in X
+assert np.allclose(sumK_EigVal, varZ), "variance should be sum of K EigVals"
+assert varZ <= varX, "total variance in Z should be smaller (or equal) to that in X"
 
 print("\n=== Reconstruct XR from Z as close as possible to X")
 XR = Z @ W.T + u
@@ -59,4 +61,4 @@ ReconstructErrors = X - XR
 CovarXR = np.cov(XR.T, bias=True)
 varXR = np.sum(np.diag(CovarZ))
 print(f'{varXR=}')
-assert np.allclose(varZ, varXR)  # variance in XR is same as in Z
+assert np.isclose(varZ, varXR), "total variance in XR should be same as in Z"
