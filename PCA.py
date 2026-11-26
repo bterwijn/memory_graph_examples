@@ -37,7 +37,7 @@ assert np.allclose(lengths, np.ones(lengths.shape)), "lengths should be close to
 for c1 in range(EigVec.shape[1]):
     for c2 in range(c1+1, EigVec.shape[1]):
         d = np.dot(EigVec[:,c1], EigVec[:,c2])  # dot all combinations of column vectors
-        assert np.isclose(d, 0), "should be orthogonal to each other, dot close to 0"
+        assert np.allclose(d, 0), "should be orthogonal to each other, dot close to 0"
 
 print("\n=== Build projection matrix with K eigen vectors with highest eigen values")
 W = EigVec[:, :K]
@@ -61,4 +61,4 @@ ReconstructErrors = X - XR
 CovarXR = np.cov(XR.T, bias=True)
 varXR = np.sum(np.diag(CovarZ))
 print(f'{varXR=}')
-assert np.isclose(varZ, varXR), "total variance in XR should be same as in Z"
+assert np.allclose(varZ, varXR), "total variance in XR should be same as in Z"
