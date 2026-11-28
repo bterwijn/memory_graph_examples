@@ -4,13 +4,15 @@ import numpy as np
 mg.extend_numpy()  # show ndarray as table
 mg.config.type_to_slicer[np.ndarray] = (mg.Slicer(), mg.Slicer())  # show full matrices
 mg.config.precision = 2  # round to 3 digits
-mg.spline('polyline')  # avoid overlapping references
+mg.spline('polyline')  # avoid reference overlap
 
 print("\n=== Create data")
 N = 20
 D = 5
 K = 3  # reduction from D to K dimensions
 X = np.random.rand(N, D)
+X *= 10  # scale
+X += np.ones((1, D)) * 20  # move
 print(f'{X.shape=}')
 
 print("\n=== Center X")
