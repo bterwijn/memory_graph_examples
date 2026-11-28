@@ -3,6 +3,8 @@ import numpy as np
 
 mg.extend_numpy()  # show ndarray as table
 mg.config.type_to_slicer[np.ndarray] = (mg.Slicer(), mg.Slicer())  # show full matrices
+mg.config.precision = 2  # round to 3 digits
+mg.spline('polyline')  # avoid overlapping references
 
 print("\n=== Create data")
 N = 20
